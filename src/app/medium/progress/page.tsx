@@ -10,8 +10,10 @@ import {
   FaMedal,
   FaCertificate,
   FaUserFriends,
+  FaArrowUp,
+  FaArrowDown,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface TeamMetric {
@@ -130,19 +132,17 @@ export default function ProgressPage() {
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {teamMetrics.map((metric, index) => (
-          <Card key={index}>
+          <Card key={index} icon={FaChartLine} title={metric.label}>
             <div className="p-6">
               <div className="flex items-start justify-between">
-                <div className="p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  {metric.icon}
+                <div>
+                  <p className="text-sm text-text-secondary">{metric.label}</p>
+                  <p className="text-2xl font-semibold mt-1">{metric.value}</p>
                 </div>
-                <div className={`text-sm font-medium ${metric.change > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  {metric.change > 0 ? '+' : ''}{metric.change}%
+                <div className={`flex items-center gap-1 ${metric.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {metric.change >= 0 ? <FaArrowUp /> : <FaArrowDown />}
+                  <span>{Math.abs(metric.change)}%</span>
                 </div>
-              </div>
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">{metric.value}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{metric.label}</p>
               </div>
             </div>
           </Card>
@@ -151,41 +151,16 @@ export default function ProgressPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Skill Progress */}
-        <Card className="md:col-span-2">
+        <Card className="md:col-span-2" icon={FaChartLine} title="Team Skill Progress">
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-              <FaChartLine className="text-primary" />
-              Team Skill Progress
-            </h2>
             <div className="space-y-6">
               {skillMetrics.map((skill, index) => (
                 <div key={index} className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">{skill.skill}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-300">
-                        Industry Avg: {skill.industryAverage}%
-                      </span>
-                      {skill.trend === 'up' && <span className="text-green-500">↑</span>}
-                      {skill.trend === 'down' && <span className="text-red-500">↓</span>}
-                      {skill.trend === 'stable' && <span className="text-gray-500">→</span>}
-                    </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-text-secondary">{skill.skill}</span>
+                    <span className="text-text-primary">{skill.teamAverage}%</span>
                   </div>
-                  <div className="relative pt-1">
-                    <ProgressBar
-                      progress={skill.teamAverage}
-                      className="h-2"
-                    />
-                    <div className="absolute top-0 left-0 w-full h-2">
-                      <div
-                        className="absolute h-full w-1 bg-gray-400 dark:bg-gray-600"
-                        style={{ left: `${skill.industryAverage}%` }}
-                      />
-                    </div>
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    Team Average: {skill.teamAverage}%
-                  </div>
+                  <ProgressBar progress={skill.teamAverage} />
                 </div>
               ))}
             </div>
@@ -193,35 +168,17 @@ export default function ProgressPage() {
         </Card>
 
         {/* Recent Achievements */}
-        <Card>
+        <Card icon={FaTrophy} title="Recent Achievements">
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-              <FaTrophy className="text-primary" />
-              Recent Achievements
-            </h2>
             <div className="space-y-4">
               {recentAchievements.map((achievement, index) => (
-                <div
-                  key={index}
-                  className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-3 transform transition-all hover:scale-[1.02]"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 bg-white dark:bg-gray-700 rounded-lg">
-                      {achievement.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-medium">{achievement.title}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {achievement.description}
-                      </p>
-                    </div>
+                <div key={index} className="flex items-start gap-3">
+                  <div className="p-2 rounded-full bg-background-secondary">
+                    <FaMedal className="w-5 h-5 text-primary" />
                   </div>
-                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
-                    <span>{achievement.date}</span>
-                    <div className="flex items-center gap-1">
-                      <FaUsers className="text-primary" />
-                      <span>{achievement.participants} members</span>
-                    </div>
+                  <div>
+                    <p className="font-medium">{achievement.title}</p>
+                    <p className="text-sm text-text-secondary">{achievement.date}</p>
                   </div>
                 </div>
               ))}
@@ -229,6 +186,40 @@ export default function ProgressPage() {
           </div>
         </Card>
       </div>
+
+      <Card icon={FaUsers} title="Team Progress" className="mb-6">
+        <div className="p-6">
+          <div className="space-y-6">
+            {teamMetrics.map((metric, index) => (
+              <div key={index} className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-secondary">{metric.label}</span>
+                  <span className="text-text-primary">{metric.value}</span>
+                </div>
+                <ProgressBar progress={metric.value as number} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card>
+
+      <Card icon={FaCertificate} title="Certifications" className="mb-6">
+        <div className="p-6">
+          <div className="space-y-4">
+            {teamMetrics.map((metric, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <div className="p-2 rounded-full bg-background-secondary">
+                  {metric.icon}
+                </div>
+                <div>
+                  <p className="font-medium">{metric.label}</p>
+                  <p className="text-sm text-text-secondary">{metric.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 } 

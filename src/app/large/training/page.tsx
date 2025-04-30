@@ -340,7 +340,30 @@ export default function TrainingPage() {
           title="Team Progress"
           className="md:col-span-2"
         >
-          {/* Team progress content */}
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {modules[0].organizationProgress.departments.map((dept, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-text-secondary">{dept.name}</span>
+                    <span className="text-text-primary">
+                      {dept.membersCompleted}/{dept.totalMembers}
+                    </span>
+                  </div>
+                  <ProgressBar
+                    progress={(dept.membersCompleted / dept.totalMembers) * 100}
+                    className="h-2"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <div className="text-2xl font-bold text-text-primary">
+                {modules[0].organizationProgress.totalCompleted}/{modules[0].organizationProgress.total}
+              </div>
+              <div className="text-sm text-text-secondary">Total Members Completed</div>
+            </div>
+          </div>
         </Card>
       </div>
     </div>

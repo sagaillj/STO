@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaUser, FaMedal, FaChartLine, FaClock, FaCalendar, FaTrophy, FaStar, FaCertificate } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface Achievement {
@@ -79,7 +79,11 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Skills Section */}
-        <Card className="md:col-span-2">
+        <Card
+          icon={FaUser}
+          title="Personal Information"
+          className="md:col-span-2"
+        >
           <div className="p-6">
             <h2 className="text-xl font-semibold mb-6">Skills Progress</h2>
             <div className="space-y-6">
@@ -100,7 +104,10 @@ export default function ProfilePage() {
         </Card>
 
         {/* Stats Card */}
-        <Card>
+        <Card
+          icon={FaChartLine}
+          title="Progress Overview"
+        >
           <div className="p-6">
             <h2 className="text-xl font-semibold mb-6">Learning Stats</h2>
             <div className="space-y-6">
@@ -128,7 +135,10 @@ export default function ProfilePage() {
       </div>
 
       {/* Achievements Section */}
-      <Card>
+      <Card
+        icon={FaMedal}
+        title="Achievements"
+      >
         <div className="p-6">
           <h2 className="text-xl font-semibold mb-6">Recent Achievements</h2>
           <div className="space-y-4">
@@ -172,7 +182,10 @@ export default function ProfilePage() {
       </Card>
 
       {/* Certificates Section */}
-      <Card>
+      <Card
+        icon={FaCertificate}
+        title="Certifications"
+      >
         <div className="p-6">
           <h2 className="text-xl font-semibold mb-6">Certificates</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,12 +1,24 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FaTrophy, FaChartLine, FaCheckCircle, FaStopwatch, FaMedal, FaLightbulb, FaStar, FaLock, FaCheck, FaMapMarkerAlt, FaSeedling, FaTree } from 'react-icons/fa';
+import { FaTrophy, FaChartLine, FaCheckCircle, FaStopwatch, FaMedal, FaLightbulb, FaStar, FaLock, FaCheck, FaMapMarkerAlt, FaSeedling, FaTree, FaUsers, FaCalendarCheck, FaCertificate, FaUserFriends } from 'react-icons/fa';
 import { GiOakLeaf, GiTreeBranch, GiGrowth } from 'react-icons/gi';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
-interface SkillProgress {
+interface TeamMember {
+  name: string;
+  role: string;
+  progress: number;
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+}
+
+interface Skill {
   skill: string;
   level: number;
   progress: number;
@@ -41,30 +53,42 @@ interface TreeStage {
   description: string;
 }
 
-const skillProgress: SkillProgress[] = [
+const teamProgress: TeamMember[] = [
+  { name: 'John Doe', role: 'Team Lead', progress: 85 },
+  { name: 'Jane Smith', role: 'Developer', progress: 65 },
+  { name: 'Mike Johnson', role: 'Designer', progress: 75 },
+];
+
+const certifications: Certification[] = [
+  { name: 'Advanced Leadership', issuer: 'Leadership Academy', date: '2023-12-15' },
+  { name: 'Project Management', issuer: 'PMI', date: '2023-11-20' },
+  { name: 'Agile Certification', issuer: 'Scrum Alliance', date: '2023-10-05' },
+];
+
+const skillProgress: Skill[] = [
   { skill: 'Personal Development', level: 3, progress: 75, recentGain: 15 },
   { skill: 'Communication', level: 2, progress: 45, recentGain: 10 },
-  { skill: 'Time Management', level: 1, progress: 30, recentGain: 5 },
+  { skill: 'Leadership', level: 4, progress: 90, recentGain: 5 },
 ];
 
 const recentAchievements: Achievement[] = [
   {
-    title: 'Fast Learner',
-    description: 'Completed 3 modules in record time',
-    date: '2 days ago',
-    icon: <FaStopwatch className="text-blue-500" />,
+    title: 'Leadership Milestone',
+    description: 'Completed advanced leadership training',
+    date: '2023-12-15',
+    icon: <FaTrophy className="w-5 h-5 text-primary" />,
   },
   {
-    title: 'Milestone Reached',
-    description: 'Achieved Level 3 in Personal Development',
-    date: '1 week ago',
-    icon: <FaMedal className="text-yellow-500" />,
+    title: 'Team Collaboration',
+    description: 'Led successful team project',
+    date: '2023-11-20',
+    icon: <FaUsers className="w-5 h-5 text-primary" />,
   },
   {
-    title: 'Insight Master',
-    description: 'Shared 5 valuable insights with the community',
-    date: '2 weeks ago',
-    icon: <FaLightbulb className="text-purple-500" />,
+    title: 'Skill Mastery',
+    description: 'Achieved expert level in communication',
+    date: '2023-10-05',
+    icon: <FaStar className="w-5 h-5 text-primary" />,
   },
 ];
 
@@ -207,42 +231,49 @@ export default function ProgressPage() {
       </div>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="col-span-full md:col-span-2">
+        <Card
+          icon={FaTrophy}
+          title="Achievements"
+          className="col-span-full md:col-span-2"
+        >
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <FaChartLine className="text-primary" />
-              Weekly Overview
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-primary">{weeklyStats.xpGained}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">XP Gained</div>
-              </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-primary">{weeklyStats.hoursSpent}h</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Time Invested</div>
-              </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-primary">{weeklyStats.tasksCompleted}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Tasks Completed</div>
-              </div>
-              <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="text-2xl font-bold text-primary">{weeklyStats.streakDays}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">Day Streak</div>
-              </div>
+            <h2 className="text-xl font-semibold mb-4">Recent Achievements</h2>
+            <div className="space-y-4">
+              {recentAchievements.map((achievement: Achievement, index: number) => (
+                <div
+                  key={index}
+                  className="flex items-start space-x-4 p-3 rounded-lg bg-background-secondary transform transition-all hover:scale-[1.02]"
+                >
+                  <div className="p-2 rounded-full bg-background-primary">
+                    {achievement.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">{achievement.title}</h3>
+                    <p className="text-sm text-text-secondary">
+                      {achievement.description}
+                    </p>
+                    <span className="text-xs text-text-secondary">{achievement.date}</span>
+                  </div>
+                  <FaCheckCircle className="text-primary" />
+                </div>
+              ))}
             </div>
           </div>
         </Card>
 
-        <Card className="md:col-span-1">
+        <Card
+          icon={FaChartLine}
+          title="Performance Metrics"
+          className="md:col-span-1"
+        >
           <div className="p-6">
             <h2 className="text-xl font-semibold mb-4">Skill Progress</h2>
             <div className="space-y-6">
-              {skillProgress.map((skill) => (
+              {skillProgress.map((skill: Skill) => (
                 <div key={skill.skill} className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{skill.skill}</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
+                    <span className="text-sm text-text-secondary">
                       Level {skill.level}
                     </span>
                   </div>
@@ -250,7 +281,7 @@ export default function ProgressPage() {
                     progress={skill.progress}
                     className="h-2"
                   />
-                  <div className="text-sm text-green-600 dark:text-green-400">
+                  <div className="text-sm text-primary">
                     +{skill.recentGain}% this week
                   </div>
                 </div>
@@ -259,26 +290,63 @@ export default function ProgressPage() {
           </div>
         </Card>
 
-        <Card className="md:col-span-1">
+        <Card
+          icon={FaUsers}
+          title="Team Progress"
+          className="md:col-span-1"
+        >
           <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Recent Achievements</h2>
+            <h2 className="text-xl font-semibold mb-4">Team Progress</h2>
             <div className="space-y-4">
-              {recentAchievements.map((achievement, index) => (
+              {teamProgress.map((member: TeamMember, index: number) => (
                 <div
                   key={index}
-                  className="flex items-start space-x-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 transform transition-all hover:scale-[1.02]"
+                  className="flex items-start space-x-4 p-3 rounded-lg bg-background-secondary"
                 >
-                  <div className="p-2 rounded-full bg-white dark:bg-gray-700">
-                    {achievement.icon}
+                  <div className="p-2 rounded-full bg-background-primary">
+                    <FaUserFriends className="w-5 h-5 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium">{achievement.title}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {achievement.description}
+                    <h3 className="font-medium">{member.name}</h3>
+                    <p className="text-sm text-text-secondary">
+                      {member.role}
                     </p>
-                    <span className="text-xs text-gray-500">{achievement.date}</span>
+                    <div className="mt-2">
+                      <ProgressBar
+                        progress={member.progress}
+                        className="h-2"
+                      />
+                    </div>
                   </div>
-                  <FaCheckCircle className="text-green-500" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+
+        <Card
+          icon={FaCertificate}
+          title="Certifications"
+          className="md:col-span-1"
+        >
+          <div className="p-6">
+            <h2 className="text-xl font-semibold mb-4">Certifications</h2>
+            <div className="space-y-4">
+              {certifications.map((cert: Certification, index: number) => (
+                <div
+                  key={index}
+                  className="flex items-start space-x-4 p-3 rounded-lg bg-background-secondary"
+                >
+                  <div className="p-2 rounded-full bg-background-primary">
+                    <FaCertificate className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-medium">{cert.name}</h3>
+                    <p className="text-sm text-text-secondary">
+                      {cert.issuer}
+                    </p>
+                    <span className="text-xs text-text-secondary">{cert.date}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -286,7 +354,12 @@ export default function ProgressPage() {
         </Card>
       </section>
 
-      <Card className="p-6 relative overflow-hidden" style={{ minHeight: '600px', background: 'linear-gradient(180deg, #5B9BD5 0%, #83CEE7 100%)' }}>
+      <Card
+        icon={FaTree}
+        title="Learning Journey"
+        className="p-6 relative overflow-hidden"
+        style={{ minHeight: '600px', background: 'linear-gradient(180deg, #5B9BD5 0%, #83CEE7 100%)' }}
+      >
         {/* Tree Stages Guide Button */}
         <button
           className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow-lg hover:scale-110 transition-transform z-20"
@@ -655,8 +728,12 @@ export default function ProgressPage() {
       </Card>
 
       {/* Current Level Details */}
-      <Card className="p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-4">Current Level: Advanced Topics</h2>
+      <Card
+        icon={FaStar}
+        title="Current Level"
+        className="p-6"
+      >
+        <h2 className="text-xl font-semibold text-text-primary mb-4">Advanced Topics</h2>
         <div className="space-y-4">
           <div>
             <div className="flex justify-between text-sm mb-2">
@@ -670,6 +747,42 @@ export default function ProgressPage() {
           <p className="text-text-secondary">
             You're making great progress! Complete this level to unlock new challenges and continue your journey.
           </p>
+        </div>
+      </Card>
+
+      <Card
+        icon={FaChartLine}
+        title="Learning Path"
+        className="p-6"
+      >
+        <div className="space-y-6">
+          {learningLevels.map((level) => (
+            <div
+              key={level.id}
+              className="flex items-center justify-between p-4 rounded-lg bg-background-secondary"
+            >
+              <div className="flex items-center space-x-4">
+                <div className={`p-2 rounded-full ${getStatusColor(level.status)}`}>
+                  {getStatusIcon(level.status)}
+                </div>
+                <div>
+                  <h3 className="font-medium">{level.title}</h3>
+                  <p className="text-sm text-text-secondary">{level.description}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-text-secondary">
+                  {level.stars}/{level.totalStars} stars
+                </span>
+                <button
+                  onClick={() => handleLevelClick(level)}
+                  className="p-2 rounded-full bg-background-primary hover:bg-background-secondary"
+                >
+                  <FaCheck className="w-4 h-4 text-primary" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </Card>
     </div>

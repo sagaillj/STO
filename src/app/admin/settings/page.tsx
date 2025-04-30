@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { 
   FaCog, FaUsers, FaDatabase, FaChartBar, FaEnvelope, 
-  FaShieldAlt, FaGlobe, FaToggleOn, FaToggleOff, FaServer 
+  FaShieldAlt, FaGlobe, FaToggleOn, FaToggleOff, FaServer, FaBell, FaPalette, FaUserCog, FaUsersCog, FaKey 
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 
 interface SystemSetting {
   id: string;
@@ -108,33 +108,28 @@ export default function AdminSettingsPage() {
       </div>
 
       {/* System Configuration */}
-      <Card>
+      <Card
+        icon={FaCog}
+        title="System Configuration"
+        className="mb-6"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaCog className="text-primary" />
-            System Configuration
-          </h2>
           <div className="space-y-6">
             {settings.map(setting => (
-              <div key={setting.id} className="flex items-start justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div key={setting.id} className="flex items-center justify-between">
                 <div>
                   <h3 className="font-medium">{setting.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {setting.description}
-                  </p>
-                  <span className={`text-xs px-2 py-1 rounded-full mt-2 inline-block
-                    ${setting.category === 'security' ? 'bg-red-100 text-red-800' :
-                      setting.category === 'performance' ? 'bg-blue-100 text-blue-800' :
-                      'bg-green-100 text-green-800'}`}>
-                    {setting.category.charAt(0).toUpperCase() + setting.category.slice(1)}
-                  </span>
+                  <p className="text-sm text-text-secondary">{setting.description}</p>
                 </div>
-                <button
-                  onClick={() => toggleSetting(setting.id)}
-                  className="text-2xl text-primary"
-                >
-                  {setting.enabled ? <FaToggleOn /> : <FaToggleOff />}
-                </button>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-text-secondary">{setting.enabled ? 'Enabled' : 'Disabled'}</span>
+                  <button
+                    onClick={() => toggleSetting(setting.id)}
+                    className="p-2 rounded-lg bg-background-secondary hover:bg-background-hover"
+                  >
+                    <FaCog className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -142,38 +137,40 @@ export default function AdminSettingsPage() {
       </Card>
 
       {/* Email Configuration */}
-      <Card>
+      <Card
+        icon={FaEnvelope}
+        title="Email Configuration"
+        className="mb-6"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaEnvelope className="text-primary" />
-            Email Configuration
-          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-2">SMTP Server</label>
+              <h3 className="font-medium mb-2">SMTP Server</h3>
               <input
                 type="text"
                 value={emailSettings.smtpServer}
                 onChange={(e) => setEmailSettings({ ...emailSettings, smtpServer: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                className="w-full p-2 rounded-lg bg-background-secondary"
+                placeholder="smtp.example.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">SMTP Port</label>
+              <h3 className="font-medium mb-2">Port</h3>
               <input
-                type="text"
+                type="number"
                 value={emailSettings.smtpPort}
                 onChange={(e) => setEmailSettings({ ...emailSettings, smtpPort: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                className="w-full p-2 rounded-lg bg-background-secondary"
+                placeholder="587"
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-2">Sender Email</label>
+              <h3 className="font-medium mb-2">Sender Email</h3>
               <input
                 type="email"
                 value={emailSettings.senderEmail}
                 onChange={(e) => setEmailSettings({ ...emailSettings, senderEmail: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                className="w-full p-2 rounded-lg bg-background-secondary"
               />
             </div>
             <div className="md:col-span-2">
@@ -186,65 +183,79 @@ export default function AdminSettingsPage() {
       </Card>
 
       {/* Security Settings */}
-      <Card>
+      <Card
+        icon={FaShieldAlt}
+        title="Security Settings"
+        className="mb-6"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaShieldAlt className="text-primary" />
-            Security Settings
-          </h2>
           <div className="space-y-6">
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <h3 className="font-medium mb-2">Password Policy</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" checked className="rounded text-primary" />
-                  <label>Require minimum 8 characters</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" checked className="rounded text-primary" />
-                  <label>Require special characters</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" checked className="rounded text-primary" />
-                  <label>Require numbers</label>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <h3 className="font-medium mb-2">Session Settings</h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Session Timeout (minutes)</label>
-                  <input
-                    type="number"
-                    value="30"
-                    className="w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
-                  />
-                </div>
-              </div>
+            <div className="p-4 bg-background-secondary rounded-lg">
+              <h3 className="font-medium mb-2">Two-Factor Authentication</h3>
+              <p className="text-sm text-text-secondary mb-4">
+                Enable 2FA for additional security
+              </p>
+              <button className="px-4 py-2 rounded-lg bg-primary text-white">
+                Enable 2FA
+              </button>
             </div>
           </div>
         </div>
       </Card>
 
       {/* Analytics & Reporting */}
-      <Card>
+      <Card
+        icon={FaChartBar}
+        title="Analytics & Reporting"
+        className="mb-6"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaChartBar className="text-primary" />
-            Analytics & Reporting
-          </h2>
           <div className="space-y-4">
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <h3 className="font-medium mb-4">Report Generation</h3>
-              <div className="flex gap-4">
-                <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-                  Generate System Report
-                </button>
-                <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-                  Export Analytics
-                </button>
+            <div className="p-4 bg-background-secondary rounded-lg">
+              <h3 className="font-medium mb-2">Data Retention</h3>
+              <p className="text-sm text-text-secondary">
+                Configure how long to keep analytics data
+              </p>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card
+        icon={FaBell}
+        title="Notification Settings"
+        className="mb-6"
+      >
+        <div className="p-6">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium">Email Notifications</h3>
+                <p className="text-sm text-text-secondary">Receive email updates</p>
               </div>
+              <button className="p-2 rounded-lg bg-background-secondary hover:bg-background-hover">
+                <FaToggleOn className="w-6 h-6 text-primary" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card
+        icon={FaPalette}
+        title="Appearance Settings"
+        className="mb-6"
+      >
+        <div className="p-6">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium">Dark Mode</h3>
+                <p className="text-sm text-text-secondary">Enable dark theme</p>
+              </div>
+              <button className="p-2 rounded-lg bg-background-secondary hover:bg-background-hover">
+                <FaToggleOn className="w-6 h-6 text-primary" />
+              </button>
             </div>
           </div>
         </div>

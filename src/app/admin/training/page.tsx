@@ -18,9 +18,15 @@ import {
   FaChartPie,
   FaLightbulb,
   FaStar,
-  FaBookReader
+  FaBookReader,
+  FaBook,
+  FaCertificate,
+  FaUserFriends,
+  FaTrophy,
+  FaPlay,
+  FaCheck,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface EditionStats {
@@ -283,6 +289,8 @@ export default function AdminTrainingPage() {
               return (
                 <Card
                   key={index}
+                  icon={Icon}
+                  title={metric.label}
                   className="p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 >
                   <div className="flex items-center gap-4">
@@ -309,7 +317,11 @@ export default function AdminTrainingPage() {
           </div>
 
           {/* Trend Chart */}
-          <Card className="p-6">
+          <Card
+            icon={FaChartLine}
+            title="Training Progress Trends"
+            className="p-6"
+          >
             <div className="mb-4 flex justify-between items-center">
               <h3 className="text-lg font-semibold text-text-primary">Training Progress Trends</h3>
               <button
@@ -404,23 +416,18 @@ export default function AdminTrainingPage() {
           {showDetails && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {detailedStats.map((stat, index) => (
-                <Card key={index} className="p-4 hover:shadow-lg transition-all duration-300">
+                <Card
+                  key={index}
+                  icon={FaChartLine}
+                  title={stat.label}
+                  className="p-4 hover:shadow-lg transition-all duration-300"
+                >
                   <h4 className="text-sm text-text-secondary mb-2">{stat.label}</h4>
                   <div className="flex items-end justify-between">
-                    <div>
-                      <span className="text-2xl font-bold text-text-primary">
-                        {stat.current}%
-                      </span>
-                      <span className="text-sm text-text-secondary ml-2">
-                        vs {stat.previous}%
-                      </span>
-                    </div>
-                    <div className={`flex items-center ${
-                      stat.trend > 0 ? 'text-green-400' : 'text-red-400'
-                    }`}>
-                      {stat.trend > 0 ? <FaArrowUp /> : <FaArrowDown />}
-                      <span className="ml-1 text-sm">{Math.abs(stat.trend)}%</span>
-                    </div>
+                    <span className="text-2xl font-semibold">{stat.current}%</span>
+                    <span className={`text-sm ${stat.trend >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {stat.trend >= 0 ? '+' : ''}{stat.trend}%
+                    </span>
                   </div>
                 </Card>
               ))}
@@ -436,6 +443,8 @@ export default function AdminTrainingPage() {
               return (
                 <Card
                   key={edition.edition}
+                  icon={Icon}
+                  title={`${edition.edition} Edition`}
                   className={`transition-all duration-300 ${
                     isSelected ? 'shadow-xl ring-2 ring-primary' : 'hover:shadow-lg'
                   }`}
@@ -542,7 +551,11 @@ export default function AdminTrainingPage() {
 
       {selectedTab === 'modules' && (
         <div className="space-y-6">
-          <Card className="p-6">
+          <Card
+            icon={FaBook}
+            title="Module Performance Analysis"
+            className="p-6"
+          >
             <h3 className="text-lg font-semibold text-text-primary mb-6">Module Performance Analysis</h3>
             <div className="space-y-8">
               {moduleAnalytics.map((module, index) => (
@@ -605,8 +618,11 @@ export default function AdminTrainingPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Learning Paths Overview */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-6">Learning Paths Distribution</h3>
+            <Card
+              icon={FaChartPie}
+              title="Learning Paths Distribution"
+              className="p-6"
+            >
               <div className="relative h-64">
                 {/* Pie Chart Visualization */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -648,7 +664,11 @@ export default function AdminTrainingPage() {
             </Card>
 
             {/* Path Performance Metrics */}
-            <Card className="p-6">
+            <Card
+              icon={FaChartLine}
+              title="Path Performance"
+              className="p-6"
+            >
               <h3 className="text-lg font-semibold text-text-primary mb-6">Path Performance</h3>
               <div className="space-y-6">
                 {learningPaths.map((path, index) => (
