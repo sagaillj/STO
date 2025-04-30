@@ -10,8 +10,12 @@ import {
   FaArrowDown,
   FaDownload,
   FaFilter,
+  FaMoneyBill,
+  FaHistory,
+  FaCreditCard,
+  FaFileInvoice,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface RevenueMetric {
@@ -91,14 +95,11 @@ export default function FinancePage() {
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* MRR Card */}
-        <Card>
+        <Card
+          icon={FaMoneyBill}
+          title="Monthly Recurring Revenue"
+        >
           <div className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <FaDollarSign className="text-primary" />
-                Monthly Recurring Revenue
-              </h3>
-            </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold">
                 ${revenueMetrics.mrr.current.toLocaleString()}
@@ -120,14 +121,11 @@ export default function FinancePage() {
         </Card>
 
         {/* ARR Card */}
-        <Card>
+        <Card
+          icon={FaChartLine}
+          title="Annual Recurring Revenue"
+        >
           <div className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <FaChartLine className="text-primary" />
-                Annual Recurring Revenue
-              </h3>
-            </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold">
                 ${revenueMetrics.arr.current.toLocaleString()}
@@ -149,14 +147,11 @@ export default function FinancePage() {
         </Card>
 
         {/* Customer Metrics Card */}
-        <Card>
+        <Card
+          icon={FaUsers}
+          title="Customer Metrics"
+        >
           <div className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <FaUsers className="text-primary" />
-                Customer Metrics
-              </h3>
-            </div>
             <div className="space-y-4">
               <div>
                 <div className="text-3xl font-bold">{customerMetrics.active}</div>
@@ -176,9 +171,11 @@ export default function FinancePage() {
       {/* Revenue Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Monthly Revenue Trend */}
-        <Card>
+        <Card
+          icon={FaHistory}
+          title="Monthly Revenue Trend"
+        >
           <div className="p-6">
-            <h3 className="text-lg font-semibold mb-6">Monthly Revenue Trend</h3>
             <div className="space-y-4">
               {monthlyRevenue.map((month, index) => (
                 <div key={index} className="space-y-2">
@@ -197,9 +194,11 @@ export default function FinancePage() {
         </Card>
 
         {/* Revenue by Edition */}
-        <Card>
+        <Card
+          icon={FaCreditCard}
+          title="Revenue by Edition"
+        >
           <div className="p-6">
-            <h3 className="text-lg font-semibold mb-6">Revenue by Edition</h3>
             <div className="space-y-4">
               {editionRevenue.map((edition, index) => (
                 <div key={index} className="space-y-2">
@@ -219,9 +218,11 @@ export default function FinancePage() {
       </div>
 
       {/* Detailed Metrics */}
-      <Card>
+      <Card
+        icon={FaFileInvoice}
+        title="Financial Metrics"
+      >
         <div className="p-6">
-          <h3 className="text-lg font-semibold mb-6">Financial Metrics</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

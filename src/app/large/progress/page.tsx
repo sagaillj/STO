@@ -1,8 +1,17 @@
 'use client';
 
 import React from 'react';
-import { FaChartLine, FaUsers, FaStar, FaTrophy, FaCalendar } from 'react-icons/fa';
-import Card from '@/components/Card';
+import {
+  FaTrophy,
+  FaChartLine,
+  FaUsers,
+  FaCalendarCheck,
+  FaLightbulb,
+  FaMedal,
+  FaCertificate,
+  FaUserFriends,
+} from 'react-icons/fa';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface DepartmentProgress {
@@ -69,7 +78,7 @@ const achievements: Achievement[] = [
     description: 'First organization to complete new modules',
     progress: 8,
     total: 10,
-    icon: FaStar
+    icon: FaChartLine
   }
 ];
 
@@ -82,7 +91,11 @@ export default function ProgressPage() {
       </div>
 
       {/* Overall Progress */}
-      <Card className="p-6">
+      <Card
+        icon={FaChartLine}
+        title="Progress Overview"
+        className="md:col-span-2"
+      >
         <div className="flex items-center gap-4 mb-6">
           <div className="p-3 rounded-lg bg-background-secondary text-primary">
             <FaChartLine className="w-6 h-6" />
@@ -113,7 +126,11 @@ export default function ProgressPage() {
       </Card>
 
       {/* Department Progress */}
-      <Card className="p-6">
+      <Card
+        icon={FaUsers}
+        title="Team Performance"
+        className="md:col-span-2"
+      >
         <h2 className="text-xl font-semibold text-text-primary mb-6">Department Progress</h2>
         <div className="space-y-8">
           {departmentProgress.map((dept, index) => (
@@ -153,7 +170,11 @@ export default function ProgressPage() {
       </Card>
 
       {/* Achievements */}
-      <Card className="p-6">
+      <Card
+        icon={FaTrophy}
+        title="Achievements"
+        className="md:col-span-2"
+      >
         <h2 className="text-xl font-semibold text-text-primary mb-6">Organization Achievements</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {achievements.map((achievement) => {

@@ -3,9 +3,14 @@
 import React, { useState } from 'react';
 import { 
   FaBell, FaMoon, FaLanguage, FaUserCircle, 
-  FaShieldAlt, FaEnvelope, FaToggleOn, FaToggleOff 
+  FaShieldAlt, FaEnvelope, FaToggleOn, FaToggleOff,
+  FaUser,
+  FaLock,
+  FaPalette,
+  FaKeyboard,
+  FaInfoCircle,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 
 interface NotificationSetting {
   id: string;
@@ -53,12 +58,12 @@ export default function SettingsPage() {
       <h1 className="text-2xl font-bold">Settings</h1>
 
       {/* Account Settings */}
-      <Card>
+      <Card
+        icon={FaUser}
+        title="Account Settings"
+        className="md:col-span-2"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaUserCircle className="text-primary" />
-            Account Settings
-          </h2>
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-2">Email Address</label>
@@ -85,12 +90,12 @@ export default function SettingsPage() {
       </Card>
 
       {/* Notification Preferences */}
-      <Card>
+      <Card
+        icon={FaBell}
+        title="Notification Preferences"
+        className="md:col-span-2"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaBell className="text-primary" />
-            Notification Preferences
-          </h2>
           <div className="space-y-6">
             {notifications.map(notification => (
               <div key={notification.id} className="flex items-start justify-between">
@@ -113,9 +118,12 @@ export default function SettingsPage() {
       </Card>
 
       {/* Appearance & Language */}
-      <Card>
+      <Card
+        icon={FaPalette}
+        title="Appearance"
+        className="md:col-span-2"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6">Appearance & Language</h2>
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -160,12 +168,12 @@ export default function SettingsPage() {
       </Card>
 
       {/* Privacy & Security */}
-      <Card>
+      <Card
+        icon={FaLock}
+        title="Security Settings"
+        className="md:col-span-2"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaShieldAlt className="text-primary" />
-            Privacy & Security
-          </h2>
           <div className="space-y-4">
             <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <h3 className="font-medium mb-2">Two-Factor Authentication</h3>
@@ -190,12 +198,12 @@ export default function SettingsPage() {
       </Card>
 
       {/* Support & Help */}
-      <Card>
+      <Card
+        icon={FaEnvelope}
+        title="Support & Help"
+        className="md:col-span-2"
+      >
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <FaEnvelope className="text-primary" />
-            Support & Help
-          </h2>
           <div className="space-y-4">
             <p className="text-gray-600 dark:text-gray-300">
               Need help? Contact our support team or visit our help center.
@@ -206,6 +214,79 @@ export default function SettingsPage() {
               </button>
               <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
                 Help Center
+              </button>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Language & Region */}
+      <Card
+        icon={FaLanguage}
+        title="Language & Region"
+        className="md:col-span-2"
+      >
+        <div className="p-6">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FaLanguage className="text-primary" />
+                <div>
+                  <h3 className="font-medium">Language</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Choose your preferred language
+                  </p>
+                </div>
+              </div>
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="px-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+              >
+                <option>English</option>
+                <option>Spanish</option>
+                <option>French</option>
+                <option>German</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Keyboard Shortcuts */}
+      <Card
+        icon={FaKeyboard}
+        title="Keyboard Shortcuts"
+        className="md:col-span-2"
+      >
+        <div className="p-6">
+          <div className="space-y-6">
+            <p className="text-gray-600 dark:text-gray-300">
+              Keyboard shortcuts are a quick way to perform actions in the application.
+            </p>
+            <div className="flex gap-4">
+              <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+                View Keyboard Shortcuts
+              </button>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* About */}
+      <Card
+        icon={FaInfoCircle}
+        title="About"
+        className="md:col-span-2"
+      >
+        <div className="p-6">
+          <div className="space-y-6">
+            <p className="text-gray-600 dark:text-gray-300">
+              This is a simple settings page.
+            </p>
+            <div className="flex gap-4">
+              <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+                View About Page
               </button>
             </div>
           </div>

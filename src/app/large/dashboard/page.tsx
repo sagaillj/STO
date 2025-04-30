@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaUsers, FaBuilding, FaCalendar, FaChartLine, FaTrophy, FaCheckCircle, FaRocket, FaBook } from 'react-icons/fa';
-import Card from '../../components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 import { EditionBadge } from '@/components/EditionBadge';
 

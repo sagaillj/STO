@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaBook, FaCheckCircle, FaTrophy, FaCalendar, FaChartLine, FaRocket } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 import { EditionBadge } from '@/components/EditionBadge';
 
@@ -97,6 +97,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card
+          icon={FaRocket}
           title="Recent Activity"
           className="transition-all duration-300 hover:shadow-lg"
         >
@@ -126,6 +127,7 @@ export default function DashboardPage() {
         </Card>
 
         <Card
+          icon={FaRocket}
           title="Quick Actions"
           className="transition-all duration-300 hover:shadow-lg"
         >

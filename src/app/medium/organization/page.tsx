@@ -11,8 +11,12 @@ import {
   FaShieldAlt,
   FaBuilding,
   FaEllipsisH,
+  FaChartLine,
+  FaUserFriends,
+  FaLayerGroup,
+  FaChartBar,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 
 interface TeamMember {
   id: number;
@@ -114,72 +118,78 @@ export default function OrganizationPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Team Members List */}
-        <div className="md:col-span-2 space-y-6">
-          <Card>
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
-                  <FaUsers className="text-primary" />
-                  Team Members
-                </h2>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    placeholder="Search members..."
-                    className="px-3 py-1 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {teamMembers.map((member) => (
-                  <div
-                    key={member.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <img
-                          src={member.avatar}
-                          alt={member.name}
-                          className="w-10 h-10 rounded-full"
-                        />
-                        <div
-                          className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 ${
-                            member.status === 'active'
-                              ? 'bg-green-500'
-                              : member.status === 'away'
-                              ? 'bg-yellow-500'
-                              : 'bg-gray-500'
-                          }`}
-                        />
-                      </div>
-                      <div>
-                        <div className="font-medium">{member.name}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300">
-                          {member.role}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-sm text-gray-600 dark:text-gray-300">
-                        Last active: {member.lastActive}
-                      </div>
-                      <button className="text-gray-500 hover:text-primary transition-colors">
-                        <FaEllipsisH />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+        <Card
+          icon={FaUsers}
+          title="Team Structure"
+          className="md:col-span-2"
+        >
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold flex items-center gap-2">
+                <FaUsers className="text-primary" />
+                Team Members
+              </h2>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Search members..."
+                  className="px-3 py-1 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+                />
               </div>
             </div>
-          </Card>
-        </div>
+
+            <div className="space-y-4">
+              {teamMembers.map((member) => (
+                <div
+                  key={member.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="w-10 h-10 rounded-full"
+                      />
+                      <div
+                        className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 ${
+                          member.status === 'active'
+                            ? 'bg-green-500'
+                            : member.status === 'away'
+                            ? 'bg-yellow-500'
+                            : 'bg-gray-500'
+                        }`}
+                      />
+                    </div>
+                    <div>
+                      <div className="font-medium">{member.name}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">
+                        {member.role}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                      Last active: {member.lastActive}
+                    </div>
+                    <button className="text-gray-500 hover:text-primary transition-colors">
+                      <FaEllipsisH />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
 
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Quick Stats */}
-          <Card>
+          <Card
+            icon={FaBuilding}
+            title="Organization Overview"
+            className="md:col-span-2"
+          >
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <FaBuilding className="text-primary" />
@@ -205,7 +215,11 @@ export default function OrganizationPage() {
           </Card>
 
           {/* Team Roles */}
-          <Card>
+          <Card
+            icon={FaShieldAlt}
+            title="Team Roles"
+            className="md:col-span-2"
+          >
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <FaShieldAlt className="text-primary" />
@@ -233,7 +247,11 @@ export default function OrganizationPage() {
           </Card>
 
           {/* Quick Actions */}
-          <Card>
+          <Card
+            icon={FaCog}
+            title="Quick Actions"
+            className="md:col-span-2"
+          >
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <FaCog className="text-primary" />

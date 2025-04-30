@@ -19,7 +19,7 @@ import {
   FaBuilding,
   FaUserTie,
 } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface TeamMember {
@@ -152,7 +152,11 @@ export default function ProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Main Organization Information */}
-        <Card className="md:col-span-2">
+        <Card
+          icon={FaUser}
+          title="Profile Information"
+          className="md:col-span-2"
+        >
           <div className="p-6">
             <div className="flex items-start gap-6">
               <div className="relative">
@@ -254,7 +258,11 @@ export default function ProfilePage() {
         </Card>
 
         {/* Organization Admin */}
-        <Card>
+        <Card
+          icon={FaUserTie}
+          title="Team Contributions"
+          className="md:col-span-2"
+        >
           <div className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <FaUserTie className="text-primary" />

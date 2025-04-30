@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FaPlay, FaCheck, FaClock, FaBook, FaLightbulb, FaTrophy, FaChartLine, FaLock } from 'react-icons/fa';
-import Card from '@/components/Card';
+import { FaPlay, FaCheck, FaClock, FaBook, FaLightbulb, FaTrophy, FaChartLine, FaLock, FaUsers, FaCertificate, FaUserGraduate } from 'react-icons/fa';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface Module {
@@ -16,6 +16,30 @@ interface Module {
   completedLessons: number;
   thumbnail: string;
 }
+
+interface QuickTip {
+  title: string;
+  description: string;
+}
+
+const quickTips: QuickTip[] = [
+  {
+    title: 'Set aside dedicated time',
+    description: 'Allocate specific time slots for learning each day to maintain consistency.',
+  },
+  {
+    title: 'Take notes and reflect',
+    description: 'Document your progress and reflect on what you\'ve learned.',
+  },
+  {
+    title: 'Practice regularly',
+    description: 'Regular practice helps reinforce new skills and knowledge.',
+  },
+  {
+    title: 'Connect with others',
+    description: 'Engage with peers to enhance your learning experience.',
+  },
+];
 
 const modules: Module[] = [
   {
@@ -102,7 +126,11 @@ export default function TrainingPage() {
       </div>
 
       {/* Stats Overview */}
-      <Card className="p-6">
+      <Card
+        icon={FaChartLine}
+        title="Training Statistics"
+        className="p-6"
+      >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="text-center">
             <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full">
@@ -136,83 +164,92 @@ export default function TrainingPage() {
       </Card>
 
       {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {modules.map((module) => (
-          <Card 
-            key={module.id}
-            className={`relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] cursor-pointer
-              ${module.status === 'locked' ? 'opacity-75' : ''}`}
-            onClick={() => module.status !== 'locked' && setSelectedModule(module.id === selectedModule ? null : module.id)}
-          >
-            <div className="absolute top-0 left-0 w-2 h-full" style={{ 
-              backgroundColor: module.status === 'locked' ? '#9CA3AF' : '#3B82F6'
-            }} />
-            
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex-1">
-                  <div className="text-4xl mb-4">{module.thumbnail}</div>
-                  <h3 className="text-lg font-semibold mb-2">{module.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                    {module.description}
-                  </p>
-                </div>
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full ${getStatusColor(module.status)} text-white`}>
-                  {getStatusIcon(module.status)}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center text-gray-600 dark:text-gray-300">
-                    <FaClock className="w-4 h-4 mr-2" />
-                    {module.duration}
-                  </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-300">
-                    <FaBook className="w-4 h-4 mr-2" />
-                    {module.completedLessons}/{module.lessons} Lessons
-                  </div>
-                </div>
-
+      <Card
+        icon={FaBook}
+        title="Training Modules"
+        className="md:col-span-2"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {modules.map((module, index) => (
+            <Card
+              key={index}
+              icon={FaUserGraduate}
+              title={module.title}
+              className="p-6"
+              onClick={() => setSelectedModule(module.id === selectedModule ? null : module.id)}
+            >
+              <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-600 dark:text-gray-300">Progress</span>
-                    <span className="font-medium">{module.progress}%</span>
-                  </div>
-                  <ProgressBar
-                    progress={module.progress}
-                    className="h-2"
-                  />
+                  <h3 className="text-xl font-semibold text-text-primary">{module.title}</h3>
+                  <p className="text-sm text-text-secondary mt-1">{module.description}</p>
                 </div>
-
-                {selectedModule === module.id && module.status !== 'locked' && (
-                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <button className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors">
-                      {module.status === 'completed' ? 'Review Module' : 'Continue Learning'}
-                    </button>
-                  </div>
+                {module.status === 'locked' ? (
+                  <FaLock className="text-2xl text-text-secondary" />
+                ) : module.status === 'completed' ? (
+                  <FaCheck className="text-2xl text-success" />
+                ) : (
+                  <FaPlay className="text-2xl text-primary" />
                 )}
               </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex justify-between text-sm mb-2">
+                    <span className="text-text-secondary">Progress</span>
+                    <span className="text-text-primary">{module.progress}%</span>
+                  </div>
+                  <ProgressBar progress={module.progress} size="sm" color="primary" />
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2">
+                    <FaClock className="text-text-secondary" />
+                    <span className="text-text-secondary">{module.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaTrophy className="text-text-secondary" />
+                    <span className="text-text-secondary">{module.completedLessons}/{module.lessons} Lessons</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Card>
 
       {/* Quick Tips */}
-      <Card className="p-6">
-        <div className="flex items-start space-x-4">
-          <div className="flex-shrink-0">
-            <FaLightbulb className="w-6 h-6 text-yellow-400" />
-          </div>
-          <div>
-            <h3 className="font-semibold mb-2">Learning Tips</h3>
-            <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-              <li>• Set aside dedicated time for learning each day</li>
-              <li>• Take notes and reflect on your progress</li>
-              <li>• Practice new skills regularly</li>
-              <li>• Connect with others in your learning journey</li>
-            </ul>
-          </div>
+      <Card
+        icon={FaLightbulb}
+        title="Quick Tips"
+        className="md:col-span-2"
+      >
+        <div className="space-y-4">
+          {quickTips.map((tip: QuickTip, index: number) => (
+            <Card
+              key={index}
+              icon={FaTrophy}
+              title={`Tip ${index + 1}`}
+              className="p-4"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-background-secondary">
+                  <FaLightbulb className="text-xl text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary">{tip.title}</h3>
+                  <p className="text-sm text-text-secondary mt-1">{tip.description}</p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Card>
+
+      <Card
+        icon={FaUsers}
+        title="Team Progress"
+        className="md:col-span-2"
+      >
+        <div className="space-y-6">
+          {/* Team progress content */}
         </div>
       </Card>
     </div>

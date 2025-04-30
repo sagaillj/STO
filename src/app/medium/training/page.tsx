@@ -1,24 +1,69 @@
 'use client';
 
 import React from 'react';
-import { FaBook, FaLock, FaCheckCircle, FaPlay, FaClock, FaUsers, FaUserFriends } from 'react-icons/fa';
-import Card from '@/components/Card';
+import {
+  FaBook,
+  FaUsers,
+  FaChartLine,
+  FaCertificate,
+  FaUserGraduate,
+  FaLightbulb,
+  FaTrophy,
+  FaPlay,
+  FaCheck,
+  FaClock,
+  FaLock,
+  FaCheckCircle,
+  FaUserFriends,
+} from 'react-icons/fa';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface Module {
   id: number;
   title: string;
   description: string;
-  duration: string;
+  status: 'locked' | 'completed' | 'in-progress';
   progress: number;
-  status: 'completed' | 'in-progress' | 'locked';
-  lessons: number;
+  duration: string;
   completedLessons: number;
-  teamProgress: {
-    total: number;
-    completed: number;
-  };
+  lessons: number;
+  points: number;
 }
+
+interface TeamMember {
+  name: string;
+  role: string;
+  completed: number;
+  progress: number;
+}
+
+const teamProgress: TeamMember[] = [
+  {
+    name: 'John Doe',
+    role: 'Team Lead',
+    completed: 8,
+    progress: 80,
+  },
+  {
+    name: 'Jane Smith',
+    role: 'Developer',
+    completed: 6,
+    progress: 60,
+  },
+  {
+    name: 'Mike Johnson',
+    role: 'Designer',
+    completed: 4,
+    progress: 40,
+  },
+  {
+    name: 'Sarah Williams',
+    role: 'QA Engineer',
+    completed: 7,
+    progress: 70,
+  },
+];
 
 const modules: Module[] = [
   {
@@ -30,10 +75,7 @@ const modules: Module[] = [
     status: 'completed',
     lessons: 6,
     completedLessons: 6,
-    teamProgress: {
-      total: 15,
-      completed: 15
-    }
+    points: 100,
   },
   {
     id: 2,
@@ -44,10 +86,7 @@ const modules: Module[] = [
     status: 'in-progress',
     lessons: 8,
     completedLessons: 5,
-    teamProgress: {
-      total: 15,
-      completed: 12
-    }
+    points: 60,
   },
   {
     id: 3,
@@ -58,10 +97,7 @@ const modules: Module[] = [
     status: 'locked',
     lessons: 5,
     completedLessons: 0,
-    teamProgress: {
-      total: 15,
-      completed: 0
-    }
+    points: 0,
   },
   {
     id: 4,
@@ -72,10 +108,7 @@ const modules: Module[] = [
     status: 'locked',
     lessons: 8,
     completedLessons: 0,
-    teamProgress: {
-      total: 15,
-      completed: 0
-    }
+    points: 0,
   }
 ];
 
@@ -117,6 +150,8 @@ export default function TrainingPage() {
           return (
             <Card
               key={module.id}
+              icon={FaBook}
+              title={module.title}
               className={`transition-all duration-300 hover:shadow-lg ${
                 module.status !== 'locked' ? 'cursor-pointer' : 'opacity-75'
               }`}
@@ -164,14 +199,14 @@ export default function TrainingPage() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-text-secondary flex items-center gap-2">
                           <FaUserFriends className="w-4 h-4" />
-                          Team Progress: {module.teamProgress.completed} of {module.teamProgress.total} members
+                          Team Progress: {teamProgress.find(member => member.name === 'John Doe')?.completed} of {teamProgress.length} members
                         </span>
                         <span className="text-sm font-medium text-text-primary">
-                          {Math.round((module.teamProgress.completed / module.teamProgress.total) * 100)}%
+                          {Math.round((teamProgress.find(member => member.name === 'John Doe')?.progress || 0) / 100 * 100)}%
                         </span>
                       </div>
                       <ProgressBar
-                        progress={(module.teamProgress.completed / module.teamProgress.total) * 100}
+                        progress={(teamProgress.find(member => member.name === 'John Doe')?.progress || 0) / 100}
                         size="sm"
                         color="peach"
                       />
@@ -190,6 +225,35 @@ export default function TrainingPage() {
           );
         })}
       </div>
+
+      <Card
+        icon={FaUsers}
+        title="Team Progress"
+        className="md:col-span-2"
+      >
+        <div className="space-y-6">
+          {teamProgress.map((member, index) => (
+            <div key={index} className="flex items-center justify-between p-4 bg-background-secondary rounded-lg">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <FaUserFriends className="text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-text-primary">{member.name}</h3>
+                  <p className="text-sm text-text-secondary">{member.role}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <div className="text-sm font-medium text-text-primary">{member.completed}</div>
+                  <div className="text-xs text-text-secondary">Completed</div>
+                </div>
+                <ProgressBar progress={member.progress} size="sm" color="primary" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 } 
