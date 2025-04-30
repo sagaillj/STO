@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+*.log              # ✅ Catches straggling non-debug logs
+*.sqlite           # ✅ In case of embedded dev DBs
 
 # debug
 npm-debug.log*
@@ -30,8 +32,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env*              # ✅ Safely ignore all env variations
 
 # vercel
 .vercel
@@ -39,3 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor + local config
+.vscode/           # ✅ Local editor settings
+.idea/             # ✅ JetBrains IDEs
+*.swp              # ✅ Vim/VSCode swap files

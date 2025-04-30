@@ -1,26 +1,345 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Brand Colors */
+  --primary: #B4B62F; /* Seed To Oaks Green */
+  --secondary: #F9B233; /* Gold/Yellow */
+  --accent: #F39200;
+  --accent-secondary: #FFD700;
+  
+  /* Additional accent colors */
+  --accent-yellow: #FFD700;
+  --accent-peach: #FFAA77;
+  --accent-orange: #FF8844;
+  --accent-green: #B4B62F;
+  
+  /* Updated Background Colors */
+  --background-primary: #1A1A1A; /* Deep Charcoal */
+  --background-secondary: #242424; /* Soft Dark Gray */
+  --background-tertiary: #2A2A2A;
+  --background-elevated: #333333;
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --text-muted: rgba(255, 255, 255, 0.65);
+  
+  /* Borders and Shadows */
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 8px 16px rgba(0, 0, 0, 0.1);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
+/* Base Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Card Styles */
+.card {
+  background-color: var(--background-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-primary);
+  padding: 1.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+  border-color: var(--border-secondary);
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid currentColor;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--background-elevated);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Typography */
+.heading-xl {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.heading-lg {
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.subheading {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Animation Utilities */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive Padding */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Admin Theme */
+.admin-theme {
+  --background-primary: #1A1A1A;
+  --background-secondary: #202020;
+  --background-tertiary: #252525;
+}
+
+/* Custom Shadows */
+.hover-shadow {
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.hover-shadow:hover {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Custom utility classes */
+.bg-card {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+}
+
+.text-success {
+  color: #48BB78;
+}
+
+.text-warning {
+  color: var(--accent-yellow);
+}
+
+.text-error {
+  color: #F56565;
+}
+
+.text-info {
+  color: #4299E1;
+}
+
+/* Additional utility classes for new accent colors */
+.text-accent-yellow {
+  color: var(--accent-yellow);
+}
+
+.text-accent-peach {
+  color: var(--accent-peach);
+}
+
+.text-accent-orange {
+  color: var(--accent-orange);
+}
+
+.text-accent-green {
+  color: var(--accent-green);
+}
+
+.bg-accent-yellow {
+  background-color: var(--accent-yellow);
+}
+
+.bg-accent-peach {
+  background-color: var(--accent-peach);
+}
+
+.bg-accent-orange {
+  background-color: var(--accent-orange);
+}
+
+.bg-accent-green {
+  background-color: var(--accent-green);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes electricity {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-electricity {
+  animation: electricity 1.5s linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-delayed-2 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-coin {
+  animation: coin-bounce 2s ease-in-out infinite;
+}
+
+.path-texture {
+  stroke-dasharray: 4;
+  animation: moveTexture 1s linear infinite;
+}
+
+@keyframes moveTexture {
+  from {
+    stroke-dashoffset: 8;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1.2s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes electric-border {
+  0% {
+    border-color: #00FF00;
+    box-shadow: 0 0 5px #00FF00;
+  }
+  25% {
+    border-color: #00FF00;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+  }
+  50% {
+    border-color: #00FF00;
+    box-shadow: 0 0 5px #00FF00;
+  }
+  75% {
+    border-color: #00FF00;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+  }
+  100% {
+    border-color: #00FF00;
+    box-shadow: 0 0 5px #00FF00;
+  }
+}
+
+.animate-electric-border {
+  animation: electric-border 0.5s linear infinite;
+} 
