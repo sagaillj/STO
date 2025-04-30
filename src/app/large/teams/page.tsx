@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FaUsers, FaChartBar, FaUserPlus, FaSearch, FaFilter, FaStar } from 'react-icons/fa';
-import Card from '@/components/Card';
+import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface TeamMember {
@@ -129,7 +129,12 @@ export default function TeamsPage() {
       {/* Teams Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredTeams.map(team => (
-          <Card key={team.id} className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
+          <Card
+            key={team.id}
+            icon={FaUsers}
+            title={team.name}
+            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+          >
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-xl font-semibold text-text-primary">{team.name}</h3>

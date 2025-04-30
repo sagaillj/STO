@@ -298,7 +298,11 @@ export default function ProfilePage() {
         </Card>
 
         {/* Billing Section - Full Width */}
-        <Card className="md:col-span-3">
+        <Card
+          icon={FaCreditCard}
+          title="Billing & Payment"
+          className="md:col-span-3"
+        >
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold flex items-center gap-2">
