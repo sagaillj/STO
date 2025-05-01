@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaTshirt, FaShieldAlt, FaHardHat, FaExclamationTriangle } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import { IconType } from 'react-icons';
 
 interface PathCardProps {
   title: string;
   description: string;
-  icon: React.ElementType;
   href: string;
+  icon: IconType;
   size: 'Small' | 'Medium' | 'Large';
   iconColor: string;
   sizeColor: string;

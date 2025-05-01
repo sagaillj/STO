@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { FaTrophy, FaChartLine, FaCheckCircle, FaStopwatch, FaMedal, FaLightbulb, FaStar, FaLock, FaCheck, FaMapMarkerAlt, FaSeedling, FaTree, FaUsers, FaCalendarCheck, FaCertificate, FaUserFriends } from 'react-icons/fa';
 import { GiOakLeaf, GiTreeBranch, GiGrowth } from 'react-icons/gi';
+import { IconType } from 'react-icons';
 import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
@@ -29,7 +30,8 @@ interface Achievement {
   title: string;
   description: string;
   date: string;
-  icon: JSX.Element;
+  icon: IconType;
+  color: string;
 }
 
 interface LearningLevel {
@@ -47,10 +49,12 @@ interface LearningLevel {
 }
 
 interface TreeStage {
-  icon: React.ElementType;
-  color: string;
-  size: string;
+  title: string;
   description: string;
+  icon: IconType;
+  color: string;
+  isCompleted: boolean;
+  size: string;
 }
 
 const teamProgress: TeamMember[] = [
@@ -76,19 +80,22 @@ const recentAchievements: Achievement[] = [
     title: 'Leadership Milestone',
     description: 'Completed advanced leadership training',
     date: '2023-12-15',
-    icon: <FaTrophy className="w-5 h-5 text-primary" />,
+    icon: FaTrophy,
+    color: 'text-primary',
   },
   {
     title: 'Team Collaboration',
     description: 'Led successful team project',
     date: '2023-11-20',
-    icon: <FaUsers className="w-5 h-5 text-primary" />,
+    icon: FaUsers,
+    color: 'text-primary',
   },
   {
     title: 'Skill Mastery',
     description: 'Achieved expert level in communication',
     date: '2023-10-05',
-    icon: <FaStar className="w-5 h-5 text-primary" />,
+    icon: FaStar,
+    color: 'text-primary',
   },
 ];
 
@@ -152,36 +159,46 @@ const learningLevels: LearningLevel[] = [
   }
 ];
 
-const treeStages: { [key: string]: TreeStage } = {
+const treeStages = {
   seed: {
+    title: 'Seed',
     icon: FaSeedling,
     color: 'text-green-300',
     size: 'w-8 h-8',
-    description: 'A tiny seed, full of potential'
+    description: 'A tiny seed, full of potential',
+    isCompleted: false,
   },
   sprout: {
+    title: 'Sprout',
     icon: GiGrowth,
     color: 'text-green-400',
     size: 'w-10 h-10',
-    description: 'Breaking through the soil'
+    description: 'Breaking through the soil',
+    isCompleted: false,
   },
   sapling: {
+    title: 'Sapling',
     icon: GiTreeBranch,
     color: 'text-green-500',
     size: 'w-12 h-12',
-    description: 'Growing stronger each day'
+    description: 'Growing stronger each day',
+    isCompleted: false,
   },
   youngTree: {
+    title: 'Young Tree',
     icon: GiOakLeaf,
     color: 'text-green-600',
     size: 'w-14 h-14',
-    description: 'Developing sturdy branches'
+    description: 'Developing sturdy branches',
+    isCompleted: false,
   },
   matureTree: {
+    title: 'Mature Tree',
     icon: FaTree,
     color: 'text-green-700',
     size: 'w-16 h-16',
-    description: 'A mighty oak tree'
+    description: 'A mighty oak tree',
+    isCompleted: false,
   }
 };
 
@@ -245,7 +262,7 @@ export default function ProgressPage() {
                   className="flex items-start space-x-4 p-3 rounded-lg bg-background-secondary transform transition-all hover:scale-[1.02]"
                 >
                   <div className="p-2 rounded-full bg-background-primary">
-                    {achievement.icon}
+                    {React.createElement(achievement.icon, { className: 'w-5 h-5 text-primary' })}
                   </div>
                   <div className="flex-1">
                     <h3 className="font-medium">{achievement.title}</h3>

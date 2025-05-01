@@ -8,11 +8,13 @@ import { useSidebar } from '@/contexts/SidebarContext';
 import { cn } from '@/lib/utils';
 import { transitions, typography } from '@/styles/tokens';
 import { EditionType } from '@/types/editions';
+import { IconType } from 'react-icons';
 
 interface NavItem {
-  icon: React.ElementType;
   label: string;
   href: string;
+  icon: IconType;
+  children?: NavItem[];
 }
 
 interface SidebarProps {

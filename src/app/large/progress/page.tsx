@@ -10,7 +10,10 @@ import {
   FaMedal,
   FaCertificate,
   FaUserFriends,
+  FaProjectDiagram,
+  FaBuilding,
 } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
@@ -53,32 +56,40 @@ const departmentProgress: DepartmentProgress[] = [
 interface Achievement {
   title: string;
   description: string;
+  date: string;
+  icon: IconType;
+  color: string;
   progress: number;
   total: number;
-  icon: React.ElementType;
 }
 
 const achievements: Achievement[] = [
   {
-    title: 'Organization Excellence',
-    description: 'Complete all leadership modules as an organization',
-    progress: 340,
-    total: 450,
-    icon: FaTrophy
+    title: 'Team Leadership',
+    description: 'Lead and manage enterprise teams effectively',
+    progress: 75,
+    total: 100,
+    icon: FaUsers,
+    date: '2024-03-15',
+    color: 'text-primary'
   },
   {
-    title: 'Team Synergy',
-    description: 'Achieve 90% completion rate across all departments',
-    progress: 85,
-    total: 90,
-    icon: FaUsers
+    title: 'Project Management',
+    description: 'Handle complex enterprise projects',
+    progress: 60,
+    total: 100,
+    icon: FaProjectDiagram,
+    date: '2024-03-10',
+    color: 'text-accent-blue'
   },
   {
-    title: 'Learning Pioneer',
-    description: 'First organization to complete new modules',
-    progress: 8,
-    total: 10,
-    icon: FaChartLine
+    title: 'Enterprise Architecture',
+    description: 'Design scalable enterprise solutions',
+    progress: 45,
+    total: 100,
+    icon: FaBuilding,
+    date: '2024-03-05',
+    color: 'text-accent-yellow'
   }
 ];
 

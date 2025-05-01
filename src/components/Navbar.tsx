@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { User } from '@/types';
 import { classNames } from '@/lib/utils';
+import { IconType } from 'react-icons';
 
 interface NavItem {
   name: string;
   href: string;
-  icon: React.ElementType;
+  icon: IconType;
 }
 
 interface NavbarProps {

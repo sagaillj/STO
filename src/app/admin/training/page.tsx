@@ -25,13 +25,15 @@ import {
   FaTrophy,
   FaPlay,
   FaCheck,
+  FaLaptop,
 } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 import Card from '@/app/components/Card';
 import ProgressBar from '@/components/ProgressBar';
 
 interface EditionStats {
   edition: 'Small' | 'Medium' | 'Large';
-  icon: React.ElementType;
+  icon: IconType;
   totalUsers: number;
   activeUsers: number;
   completionRate: number;
@@ -43,33 +45,33 @@ interface EditionStats {
 const editionStats: EditionStats[] = [
   {
     edition: 'Small',
-    icon: FaGraduationCap,
-    totalUsers: 250,
-    activeUsers: 180,
-    completionRate: 72,
-    averageProgress: 65,
-    topModule: 'Introduction to Community Leadership',
-    trend: 12
+    icon: FaBook,
+    totalUsers: 500,
+    activeUsers: 350,
+    completionRate: 75,
+    averageProgress: 82,
+    topModule: 'Introduction',
+    trend: 5.2
   },
   {
     edition: 'Medium',
-    icon: FaUsers,
-    totalUsers: 150,
-    activeUsers: 120,
-    completionRate: 80,
-    averageProgress: 75,
-    topModule: 'Team Building Fundamentals',
-    trend: 15
+    icon: FaLaptop,
+    totalUsers: 750,
+    activeUsers: 520,
+    completionRate: 68,
+    averageProgress: 71,
+    topModule: 'Advanced Concepts',
+    trend: 3.8
   },
   {
     edition: 'Large',
-    icon: FaBuilding,
-    totalUsers: 80,
-    activeUsers: 65,
-    completionRate: 81,
-    averageProgress: 78,
-    topModule: 'Organizational Leadership',
-    trend: 18
+    icon: FaUserGraduate,
+    totalUsers: 1200,
+    activeUsers: 890,
+    completionRate: 62,
+    averageProgress: 65,
+    topModule: 'Enterprise Integration',
+    trend: 7.1
   }
 ];
 
@@ -77,33 +79,33 @@ interface GlobalMetric {
   label: string;
   value: string;
   change: number;
-  icon: React.ElementType;
+  icon: IconType;
 }
 
 const globalMetrics: GlobalMetric[] = [
   {
-    label: 'Total Learners',
-    value: '480',
-    change: 15,
+    label: 'Total Enrollments',
+    value: '1,234',
+    change: 12.5,
     icon: FaUsers
   },
   {
     label: 'Completion Rate',
-    value: '76%',
-    change: 8,
-    icon: FaCheckCircle
+    value: '78%',
+    change: 5.2,
+    icon: FaGraduationCap
   },
   {
-    label: 'Avg. Time per Module',
-    value: '2.5h',
-    change: -10,
+    label: 'Avg. Time Spent',
+    value: '4.2h',
+    change: -2.1,
     icon: FaClock
   },
   {
-    label: 'Active Modules',
-    value: '12',
-    change: 25,
-    icon: FaSpinner
+    label: 'Satisfaction',
+    value: '4.8/5',
+    change: 0.3,
+    icon: FaStar
   }
 ];
 
