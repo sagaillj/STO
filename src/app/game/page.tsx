@@ -55,12 +55,11 @@ export default function GamePage() {
       {/* Jack Character */}
       <div className="absolute left-8 top-64 w-[614px] h-[614px]">
         <Image
-          src="/images/jack.PNG"
+          src="/images/jack.png"
           alt="Jack"
-          fill
-          className="object-contain"
-          sizes="614px"
-          unoptimized
+          width={500}
+          height={500}
+          className="w-full h-auto"
         />
       </div>
 
