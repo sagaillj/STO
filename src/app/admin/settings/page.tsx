@@ -66,7 +66,11 @@ export default function AdminSettingsPage() {
 
       {/* System Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-green-50 dark:bg-green-900/20">
+        <Card
+          icon={FaServer}
+          title="System Status"
+          className="bg-green-50 dark:bg-green-900/20"
+        >
           <div className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-full bg-green-500/20">
@@ -79,7 +83,11 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         </Card>
-        <Card className="bg-blue-50 dark:bg-blue-900/20">
+        <Card
+          icon={FaUsers}
+          title="Active Users"
+          className="bg-blue-50 dark:bg-blue-900/20"
+        >
           <div className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-full bg-blue-500/20">
@@ -92,7 +100,11 @@ export default function AdminSettingsPage() {
             </div>
           </div>
         </Card>
-        <Card className="bg-purple-50 dark:bg-purple-900/20">
+        <Card
+          icon={FaDatabase}
+          title="Database Size"
+          className="bg-purple-50 dark:bg-purple-900/20"
+        >
           <div className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-full bg-purple-500/20">
